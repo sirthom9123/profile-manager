@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Profile {% endblock title %}
+{% block scripts %} 
+{% endblock scripts %}
+{% block content %}
+<div class="container-fluid mt-4">
+    {% include 'messages.html' %}
+</div>
+
+<div class="row">
+    <div class="col-md-7 form-group">
+        <a href="{% url 'logout' %}" class="btn btn-warning">Logout</a>
+    </div>
+</div>
+{% endblock content %}

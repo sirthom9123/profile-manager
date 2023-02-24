@@ -1,0 +1,113 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Authentication {% endblock title %}
+{% block scripts %} 
+<link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock scripts %}
+{% block content %}
+<div class="text-center">
+  <main class="form-signin">
+    <ul class="nav nav-tabs d-flex align-items-start" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#login-tab" type="button" role="tab" aria-controls="login-tab" aria-selected="true">Sign In</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#register-tab" type="button" role="tab" aria-controls="register-tab" aria-selected="false">Sign Up</button>
+        </li>
+    </ul>
+    {% include 'messages.html' %}
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="login-tab" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            <form action="{% url 'login' %}" method='POST' autocomplete="off">
+                {% csrf_token %}
+                <h4 class="text-muted mt-3 mb-3 fw-normal">Please sign in</h4>
+        
+                <div class="form-floating">
+                <input
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                />
+                <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    id="floatingPassword"
+                    placeholder="Password"
+                />
+                <label for="floatingPassword">Password</label>
+                </div>
+        
+                {% comment %} <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me" /> Remember me
+                </label>
+                </div> {% endcomment %}
+                <button class="w-100 btn btn-md btn-primary" type="submit">
+                Sign in
+                </button>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="register-tab" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            <form action="{% url 'register' %}" method='POST' autocomplete="off">
+                {% csrf_token %}
+                <h4 class="text-muted mt-3 mb-3 fw-normal">Please sign up</h4>
+        
+                <div class="form-floating">
+                    <input
+                        type="username"
+                        name="username"
+                        class="form-control"
+                        id="floatingInput"
+                        placeholder="tshiamo1234"
+                    />
+                    <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        id="floatingInput"
+                        placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        id="floatingPassword"
+                        placeholder="Password"
+                    />
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                        type="password"
+                        name="password2"
+                        class="form-control"
+                        id="floatingPassword"
+                        placeholder="Password"
+                    />
+                    <label for="floatingPassword">Confirm Password</label>
+                </div>
+        
+                {% comment %} <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me" /> Remember me
+                </label>
+                </div> {% endcomment %}
+                <button class="w-100 btn btn-md btn-primary" type="submit">
+                Sign up
+                </button>
+            </form>
+        </div>
+    </div>
+  </main>
+</div>
+{% endblock content %}

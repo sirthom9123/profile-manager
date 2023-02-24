@@ -4,6 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profile Manager| {% block title %}{% endblock title %}</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -12,11 +13,20 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css"
+      type="text/css"
+    />
 
-    <title>Hello, world!</title>
+    {% block scripts %} {% endblock scripts %}
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <div class="container-fluid">
+      <br />
+      {% block content %} {% endblock content %}
+    </div>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script

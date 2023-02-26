@@ -1,13 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from .models import Profile
-
-class CustomUserCreationForm(UserCreationForm):
-	class Meta:
-		model = User
-		fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
   
   
 class UserForm(forms.ModelForm):
@@ -19,5 +13,12 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = '__all__'
-		exclude = ['user', 'created_date', 'updated_date']
+		fields = [
+      			"phone_number",
+				"address_line1",
+				"suburb",
+				"city",
+				"province",
+				"postal_code",
+				"country",
+			]

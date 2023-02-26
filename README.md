@@ -15,6 +15,10 @@ API Used:
 - Go to Mapbox https://www.mapbox.com/ and create a developer account
 - After registration, create a key (it's free) and add it to your env file.
 
+#### Database
+- Postgresql
+To install on your machine (Windows/Mac/Linux) follow the link for instructions: https://www.postgresql.org/download/
+
 Command To Execute on Windows:
 
 ## Installation

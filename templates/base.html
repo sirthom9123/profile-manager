@@ -23,9 +23,9 @@
     {% block scripts %} {% endblock scripts %}
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container">
       <br />
-      {% block content %} {% endblock content %}
+      {% include 'nav.html' %} {% block content %} {% endblock content %}
     </div>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

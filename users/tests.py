@@ -3,21 +3,12 @@ from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from .models import Profile
 
-
-from datetime import datetime, timedelta
-
-# Get 15 years ago date
-dated_history = datetime.now() - timedelta(days=15*365) 
-history = datetime.strftime(dated_history, '%Y-%m-%d')
-
-
 class UserTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.username = 'test-admin'
         self.password = 'password123'
         self.email = 'emal@test.com'
-        self.dob = history
         
     def test_registration(self):
         """ 
@@ -57,7 +48,6 @@ class UserTest(TestCase):
         user.last_name = 'Testing'
         user.save()
         self.data = {
-            "dob": self.dob,
             "address_line1": '123 Testing street',
             "suburb": 'Wonderboom',
             "city": 'Pretoria',

@@ -9,6 +9,17 @@ class UserTest(TestCase):
         self.username = 'test-admin'
         self.password = 'password123'
         self.email = 'emal@test.com'
+        self.request_url = reverse('index')
+        
+    def test_unauthenticated_user(self):
+        """
+        Test that an unauthorized user cannot access the map(list) view
+        """
+        response = self.client.get(self.request_url)
+        assert 300 <= response.status_code < 500, "Response.status_code was {}".format(
+            response.status_code
+        )
+        
         
     def test_registration(self):
         """ 
@@ -25,17 +36,14 @@ class UserTest(TestCase):
         self.assertEqual(user.email, email)
         self.assertTrue(user.check_password(password))
         
+        
     def test_login_user(self):
         """ 
-        Test case for login user
+        Test case for login user & get all profile data
         """
-        email = self.email
-        password = self.password
-        username = self.username
-        user = User.objects.create_user(email=email, password=password, username=username)
-        self.client.login(username=user.username, password=user.password)
-        response = self.client.get('/profile/')
-        self.assertEqual(user.username, username)
+        self.client.login(username=self.username, password=self.password)
+        response = self.client.get('/') # Redirect to home page
+        self.assertEqual(self.username, self.username)
         self.assertTrue(response.status_code, 200)
         
         

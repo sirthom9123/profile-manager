@@ -34,48 +34,50 @@
   </div>
 </div>
 <!-- EndModal -->
-<div class="container-fluid mt-4">{% include 'messages.html' %}</div>
+<div class="container-fluid ">
+  {% include 'messages.html' %}
 
-<div class="row">
-  {% if profile %}
-  <div class="col-md-6 form-group">
-    <div class="card">
-      <h5 class="card-header">
-        {{profile.user.first_name}} {{profile.user.last_name}}
-      </h5>
-      <div class="card-body">
-        <p class="card-text">Email: {{profile.user.email}}</p>
-        <h5 class="card-title">Address: </h5>
-        <h5 class="card-title">{{profile.address_line1}}</h5>
-        <p class="card-text">{{profile.suburb}}</p>
-        <p class="card-text">{{profile.city}}</p>
-        <p class="card-text">{{profile.province}}</p>
-        <p class="card-text">{{profile.postal_address}}</p>
-        <p class="card-text">{{profile.country}}</p>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#profileModal"
-        >
-          Update Profile
-        </button>
+  <div class="row">
+    {% if profile %}
+    <div class="col-md-6 form-group">
+      <div class="card">
+        <h5 class="card-header">
+          {{profile.user.first_name}} {{profile.user.last_name}}
+        </h5>
+        <div class="card-body">
+          <p class="card-text">Email: {{profile.user.email}}</p>
+          <h5 class="card-title">Address: </h5>
+          <h5 class="card-title">{{profile.address_line1}}</h5>
+          <p class="card-text">{{profile.suburb}}</p>
+          <p class="card-text">{{profile.city}}</p>
+          <p class="card-text">{{profile.province}}</p>
+          <p class="card-text">{{profile.postal_address}}</p>
+          <p class="card-text">{{profile.country}}</p>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#profileModal"
+          >
+            Update Profile
+          </button>
+        </div>
       </div>
     </div>
+    <div class="col-md-6 form-group">{{map|safe}}</div>
+    {% else %}
+    <div class="col-md-6 form-group">
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#profileModal"
+      >
+        Create Profile
+      </button>
+    </div>
+    
+    {% endif %}
   </div>
-  <div class="col-md-6 form-group">{{map|safe}}</div>
-  {% else %}
-  <div class="col-md-6 form-group">
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#profileModal"
-    >
-      Create Profile
-    </button>
-  </div>
-  
-  {% endif %}
 </div>
 {% endblock content %}

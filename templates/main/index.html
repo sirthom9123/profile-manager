@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} 
+{% block title %} Profile Finder {% endblock title %} 
+{% block content %}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        {% if profile %}
+        <div class="col-md-10">{{map|safe}}</div>
+        {% else %}
+        <h1>There are no profiles to load....</h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

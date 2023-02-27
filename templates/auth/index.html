@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block title %} Authentication {% endblock title %}
+{% extends 'base_auth.html' %} {% load static %} {% block title %} Authentication {% endblock title %}
 {% block scripts %} 
 <link href="{% static 'css/signin.css' %}" rel="stylesheet">
 {% endblock scripts %}
@@ -40,12 +40,6 @@
                 />
                 <label for="floatingPassword">Password</label>
                 </div>
-        
-                {% comment %} <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me" /> Remember me
-                </label>
-                </div> {% endcomment %}
                 <button class="w-100 btn btn-md btn-primary" type="submit">
                 Sign in
                 </button>
@@ -96,12 +90,6 @@
                     />
                     <label for="floatingPassword">Confirm Password</label>
                 </div>
-        
-                {% comment %} <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me" /> Remember me
-                </label>
-                </div> {% endcomment %}
                 <button class="w-100 btn btn-md btn-primary" type="submit">
                 Sign up
                 </button>

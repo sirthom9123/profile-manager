@@ -41,10 +41,10 @@ class Profile(models.Model):
     def __str__(self):
         return f'Profile for {self.user.first_name}' 
     
-    """ 
-    Get Geocordinates on save with helper function.
-    """
     def save(self, *args, **kwargs):
+        """ 
+        Get Geocordinates on save with helper function.
+        """
         location = f'{self.address_line1}, {self.suburb}, {self.city}, {self.province}, {self.postal_code}'
         location_coord = get_coordinates(location)
         if self.latitude == "" and self.longitude == "":

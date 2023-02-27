@@ -10,22 +10,34 @@ from .models import Profile
 from .forms import ProfileForm, UserForm
 
 def authentication_view(request):
+    """Authentication view
+    Args:
+        request (get): If a user is authenticated, they will be
+        redirected to the home page.
+
+    """
     if request.user.is_authenticated:
-        return redirect('profile')
+        return redirect('/')
 
     return render(request, 'auth/index.html')
 
 
 @login_required(login_url='authentication')
 def home_view(request):
-    # Get all the profile data and use a prefetch 
+    """Get the profile data. Iterate and map the data into a map. 
+    Args:
+        request (get): 
+        - queryset: [<Queryset: Profile of Test>, <Queryset: Profile of Test2>]
+    Returns:
+        html: map to the client side with profile data mapped into it. 
+    """
+    # Get all the profile data and optimize queryset 
     profile = Profile.objects.select_related('user').all()
     
-    """
-    Initialize the map with a center coordinate, for my example I used Pretoria as the center.
-    """
+    # Initialize the map with a center coordinate, for my example I used Pretoria as the center.
     map = folium.Map(location=(-25.7479, 28.2293), zoom_start=8, tiles="OpenStreetMap")
     
+    # Iterate through the profiles and map the lat, lon & extra profile data to the marker and Icon.
     for item in profile:
         folium.Marker(location=[item.latitude, item.longitude], popup=f'{item} @ {item.address_line1} {item.city}', icon=folium.Icon(color='red')).add_to(map)
     map_html = map._repr_html_()
@@ -40,6 +52,23 @@ def home_view(request):
 
 
 def login_view(request):
+    """Handle authenticating users
+    
+    Args:
+        request (post): 
+        - Params: email & password 
+    
+    Conditions: 
+        request:
+        - Authenticated user is redirected to home page
+        - If email does not exists, it will prompt a message
+        - If password is incorrect it will prompt a message
+        - If params do not match then it will prompt a message
+    
+    Returns:
+        - queryset: Authenticated user
+                <Queryset: TestUser>
+    """
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -60,6 +89,16 @@ def login_view(request):
 
 
 def register_user(request):
+    """Handle signing up users
+
+    Args:
+        request (post): 
+        - Params: email, username & password 
+
+    Returns:
+        queryset: Created user in the Model & authenticate the user. 
+        <Queryset: TestUser>
+    """
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -101,11 +140,20 @@ def register_user(request):
 
 @login_required(login_url='authentication')
 def profile_view(request):
-    user = request.user
-    """ 
-    Handle an exception for existing or non exsting profiles. 
-    Render user data & location on a map
+    """Profile view for authenticated user. Only the users data is displayed here.
+        The user can create or update their profile with a form generated from django
+        forms template.
+
+    Args:
+        request (queryset): An exception handles if a profile exists or not. If it 
+        does, then a map is generated. 
+
+    Returns:
+        context: Users data, Map & forms are rendered to the client side. 
+        i.e. context = {'profile': profile, 'map': map, 'form': form}
     """
+    user = request.user
+    
     try:
         profile = Profile.objects.get(user=user)
         map = folium.Map(location=(profile.latitude, profile.longitude), zoom_start=15, tiles="OpenStreetMap")
@@ -117,9 +165,8 @@ def profile_view(request):
         map_html = None
     
     
-    """
-    Handle profile form & user form creation and update
-    """
+
+    # Handle profile form & user form creation and update
     profile_form = ProfileForm(request.POST or None, instance=profile)
     user_form = UserForm(request.POST or None, instance=user)
     if request.method == 'POST':
